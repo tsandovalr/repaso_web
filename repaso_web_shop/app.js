@@ -4,16 +4,19 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+
+
+//la pw no me agarraba en .env ni en nodemon.js así que no pude aislarla
+mongoose.connect("mongodb+srv://tsandoval:tsandoval@cluster0.nezxj.mongodb.net/repasoweb?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+.then(db => console.log('Database is connected'))
+.catch(err => console.log(err));
+
+
+
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(MONGODB_URI, { 
-    useUnifiedTopology: true,
-    useNewUrlParser:true,
-    useCreateIndex : true
-})
 
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
